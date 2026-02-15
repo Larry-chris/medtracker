@@ -1,14 +1,10 @@
-// src/app/ue/[id]/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-// ON CHANGE ICI : 3 fois ".." pour remonter à la racine de src
 import { useStore, STATUS_STEPS, RevisionStatus } from "../../../hooks/useStore";
 import { supabase } from "../../../utils/supabase";
 import { ArrowLeft, Plus, Trash2, BookOpen, Loader2 } from "lucide-react";
-
-// ... le reste du code ne change pas ...
 
 export default function UEDetailPage() {
     const params = useParams();
@@ -16,7 +12,6 @@ export default function UEDetailPage() {
     const router = useRouter();
     const { ues, fetchData, theme } = useStore();
 
-    // États locaux
     const [newSubject, setNewSubject] = useState("");
     const [newChapters, setNewChapters] = useState<Record<string, string>>({});
     const [isSyncing, setIsSyncing] = useState(false);
@@ -29,8 +24,6 @@ export default function UEDetailPage() {
     }, [ues, fetchData, theme]);
 
     if (!ue) return <div className="p-10 text-center animate-pulse">Chargement de l'unité...</div>;
-
-    // --- ACTIONS SUPABASE ---
 
     const addSubject = async () => {
         if (!newSubject.trim()) return;
@@ -65,9 +58,9 @@ export default function UEDetailPage() {
 
     return (
         <div className="min-h-screen pb-20">
-            {/* Header Navigation */}
-            <header className="sticky top-0 z-30 bg-[var(--bg-main)]/90 backdrop-blur-md border-b border-[var(--border)] px-4 py-4 flex items-center gap-4">
-                <button onClick={() => router.push('/')} className="p-2 hover:bg-[var(--bg-card)] rounded-full transition">
+            {/* Header avec syntaxe v4 */}
+            <header className="sticky top-0 z-30 bg-(--bg-main)/90 backdrop-blur-md border-b border-(--border) px-4 py-4 flex items-center gap-4">
+                <button onClick={() => router.push('/')} className="p-2 hover:bg-(--bg-card) rounded-full transition">
                     <ArrowLeft size={20} />
                 </button>
                 <div className="flex-1">
@@ -81,17 +74,17 @@ export default function UEDetailPage() {
 
             <main className="p-4 max-w-xl mx-auto space-y-8">
                 {/* Ajouter une Matière */}
-                <section className="bg-[var(--bg-card)] p-5 rounded-3xl border border-[var(--border)] shadow-sm">
-                    <h2 className="text-xs font-black uppercase tracking-tighter mb-3 opacity-50 text-[var(--text-main)]">Nouvelle Matière</h2>
+                <section className="bg-(--bg-card) p-5 rounded-3xl border border-(--border) shadow-sm">
+                    <h2 className="text-xs font-black uppercase tracking-tighter mb-3 opacity-50 text-(--text-main)">Nouvelle Matière</h2>
                     <div className="flex gap-2">
                         <input
-                            className="flex-1 bg-[var(--bg-main)] border border-[var(--border)] rounded-2xl p-3 text-sm outline-none focus:border-[var(--accent)] transition"
+                            className="flex-1 bg-(--bg-main) border border-(--border) rounded-2xl p-3 text-sm outline-none focus:border-(--accent) transition"
                             placeholder="Ex: Anatomie, Pharmacologie..."
                             value={newSubject}
                             onChange={(e) => setNewSubject(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && addSubject()}
                         />
-                        <button onClick={addSubject} className="bg-[var(--accent)] text-[var(--bg-main)] px-4 rounded-2xl font-bold">
+                        <button onClick={addSubject} className="bg-(--accent) text-(--bg-main) px-4 rounded-2xl font-bold">
                             <Plus size={20} />
                         </button>
                     </div>
@@ -107,10 +100,10 @@ export default function UEDetailPage() {
                     )}
 
                     {ue.subjects?.map((sub: any) => (
-                        <div key={sub.id} className="bg-[var(--bg-card)] rounded-[2.5rem] border border-[var(--border)] overflow-hidden shadow-lg">
+                        <div key={sub.id} className="bg-(--bg-card) rounded-[2.5rem] border border-(--border) overflow-hidden shadow-lg">
                             {/* Titre Matière */}
-                            <div className="p-5 bg-[var(--bg-main)]/30 border-b border-[var(--border)] flex justify-between items-center">
-                                <h3 className="font-black text-sm uppercase tracking-widest text-[var(--accent)] italic">{sub.name}</h3>
+                            <div className="p-5 bg-(--bg-main)/30 border-b border-(--border) flex justify-between items-center">
+                                <h3 className="font-black text-sm uppercase tracking-widest text-(--accent) italic">{sub.name}</h3>
                                 <button onClick={() => deleteItem('subjects', sub.id)} className="text-red-400 p-2 hover:bg-red-500/10 rounded-xl transition">
                                     <Trash2 size={16} />
                                 </button>
@@ -119,7 +112,7 @@ export default function UEDetailPage() {
                             {/* Liste Chapitres */}
                             <div className="p-5 space-y-3">
                                 {sub.chapters?.map((chap: any) => (
-                                    <div key={chap.id} className="flex items-center gap-3 bg-[var(--bg-main)] p-3 rounded-2xl border border-[var(--border)] group">
+                                    <div key={chap.id} className="flex items-center gap-3 bg-(--bg-main) p-3 rounded-2xl border border-(--border) group">
                                         <select
                                             value={chap.status}
                                             onChange={(e) => updateStatus(chap.id, e.target.value as RevisionStatus)}
@@ -140,7 +133,7 @@ export default function UEDetailPage() {
                                 ))}
 
                                 {/* Ajout Chapitre Rapide */}
-                                <div className="flex gap-2 pt-2 mt-2 border-t border-[var(--border)] border-dashed">
+                                <div className="flex gap-2 pt-2 mt-2 border-t border-(--border) border-dashed">
                                     <input
                                         className="flex-1 bg-transparent text-xs p-2 outline-none"
                                         placeholder="Nouveau chapitre..."
@@ -148,7 +141,7 @@ export default function UEDetailPage() {
                                         onChange={(e) => setNewChapters({ ...newChapters, [sub.id]: e.target.value })}
                                         onKeyDown={(e) => e.key === 'Enter' && addChapter(sub.id)}
                                     />
-                                    <button onClick={() => addChapter(sub.id)} className="text-[10px] font-black uppercase text-[var(--accent)] tracking-widest px-2">
+                                    <button onClick={() => addChapter(sub.id)} className="text-[10px] font-black uppercase text-(--accent) tracking-widest px-2">
                                         Ajouter
                                     </button>
                                 </div>
