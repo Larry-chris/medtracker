@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { supabase } from '@/utils/supabase';
+import { supabase } from '../utils/supabase';
 
 export type RevisionStatus = 'Pas commencé' | 'Lu' | 'Appris' | 'Réviser 1' | 'Révisé 2' | 'Révisé 3';
 export const STATUS_STEPS: RevisionStatus[] = ['Pas commencé', 'Lu', 'Appris', 'Réviser 1', 'Révisé 2', 'Révisé 3'];
