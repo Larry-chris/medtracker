@@ -1,10 +1,14 @@
+// src/app/ue/[id]/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useStore, STATUS_STEPS, RevisionStatus } from "@/hooks/useStore";
-import { supabase } from "@/utils/supabase";
-import { ArrowLeft, Plus, Trash2, BookOpen, CheckCircle, Loader2 } from "lucide-react";
+// ON CHANGE ICI : 3 fois ".." pour remonter à la racine de src
+import { useStore, STATUS_STEPS, RevisionStatus } from "../../../hooks/useStore";
+import { supabase } from "../../../utils/supabase";
+import { ArrowLeft, Plus, Trash2, BookOpen, Loader2 } from "lucide-react";
+
+// ... le reste du code ne change pas ...
 
 export default function UEDetailPage() {
     const params = useParams();

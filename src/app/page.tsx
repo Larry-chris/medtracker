@@ -1,10 +1,14 @@
+// src/app/page.tsx
 "use client";
-import { useEffect, useState } from "react";
-import { useStore } from "@/hooks/useStore";
-import { supabase } from "@/utils/supabase";
-import { useRouter } from "next/navigation";
-import { Settings, Plus, GraduationCap, ChevronRight, Activity } from "lucide-react";
 
+// ON CHANGE ICI : On utilise des ".." au lieu de "@"
+import { useEffect, useState, useMemo } from "react";
+import { useStore } from "../hooks/useStore";
+import { supabase } from "../utils/supabase";
+import { useRouter } from "next/navigation";
+import { Settings, Plus, Trash2, GraduationCap, Activity, ChevronRight } from "lucide-react";
+
+// ... le reste du code ne change pas ...
 export default function Home() {
   const { theme, setTheme, ues, fetchData } = useStore();
   const [newUE, setNewUE] = useState("");
